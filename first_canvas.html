@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Simple canvas</title>
+<style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body >
+<div style="padding-left: 100px; padding-top: 100px;">
+    <canvas id="simpleSceene"  width="400" height="400">
+        <p>Your browser doesn't support canvas</p>
+    </canvas>
+    <h3>Positions</h3>
+    <h4>Rectangle</h4>
+    <label for="sqrx">x:</label>
+    <input type="number" id="sqrx" min="0" max="600" onchange="render();" value="100">
+    <label for="sqry">y:</label>
+    <input type="number" id="sqry" min="0" max="600" onchange="render();" value="100">
+    <h4>Triangle</h4>
+    <label for="trix">x:</label>
+    <input type="number" id="trix" min="0" max="600" onchange="render();" value="300">
+    <label for="triy">y:</label>
+    <input type="number" id="triy" min="0" max="600" onchange="render();" value="100">
+    <h4>Circle</h4>
+    <label for="circx">x:</label>
+    <input type="number" id="circx" min="0" max="600" onchange="render();" value="500">
+    <label for="circy">y:</label>
+    <input type="number" id="circy" min="0" max="600" onchange="render();" value="100">
+</div>
+
+</body>
+<script>
+function render(e){
+    //get canvas and its context
+    const canvas = document.querySelector('#simpleSceene');
+    const width = canvas.width = 600;
+    const height = canvas.height = 200;
+    const ctx = canvas.getContext('2d');
+    //fill background
+    const rbwGrd = ctx.createLinearGradient(0, 0, width, 0);
+    rbwGrd.addColorStop(0, 'red');
+    rbwGrd.addColorStop(0.2, 'orange');
+    rbwGrd.addColorStop(0.4, 'yellow');
+    rbwGrd.addColorStop(0.6, 'green');
+    rbwGrd.addColorStop(0.8, 'blue');
+    rbwGrd.addColorStop(1, 'purple');
+    ctx.fillStyle = rbwGrd;
+    ctx.fillRect(0, 0, width, height);
+
+    //draw square
+    var rectWidth = 50;
+    var rectheight = 50;
+    var rectx = parseInt(document.querySelector('#sqrx').value);
+    var recty = parseInt(document.querySelector('#sqry').value);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(rectx - (rectWidth/2), recty - (rectheight/2), rectWidth, rectheight)
+
+    //draw triangle
+    var triBase = 50;
+    var triHeight = 50;
+    var trix = parseInt(document.querySelector('#trix').value);
+    var triy = parseInt(document.querySelector('#triy').value);
+    ctx.beginPath();
+    ctx.moveTo(trix, triy - (triHeight/2));
+    ctx.lineTo(trix - (triBase/2), triy + (triHeight/2));
+    ctx.lineTo(trix + (triBase/2), triy + (triHeight/2));
+    ctx.fill();
+
+    //draw circle
+    var radius = 25
+    var circx = parseInt(document.querySelector('#circx').value);
+    var circy = parseInt(document.querySelector('#circy').value);
+    ctx.beginPath();
+    ctx.moveTo(circx, circy);
+    ctx.arc(circx, circy, radius, 0, 360);
+    ctx.fill();
+}
+render();
+</script>
+</html>
